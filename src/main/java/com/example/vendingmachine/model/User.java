@@ -1,6 +1,12 @@
 package com.example.vendingmachine.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,7 +15,7 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Column(name = "username")
     private String username;
@@ -22,6 +28,15 @@ public class User {
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
     private List<Product> productList;
+
+    public User() {
+    }
+
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     public UUID getId() {
         return id;
