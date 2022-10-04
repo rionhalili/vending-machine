@@ -1,12 +1,12 @@
-package com.example.vendingmachine.controller;
+package com.example.vendingmachine.user.controller;
 
-import com.example.vendingmachine.dto.JwtResponse;
-import com.example.vendingmachine.dto.LoginRequest;
-import com.example.vendingmachine.dto.SignupRequest;
-import com.example.vendingmachine.model.Role;
-import com.example.vendingmachine.model.User;
-import com.example.vendingmachine.repository.RoleRepository;
-import com.example.vendingmachine.repository.UserRepository;
+import com.example.vendingmachine.user.dto.JwtResponse;
+import com.example.vendingmachine.user.dto.LoginRequest;
+import com.example.vendingmachine.user.dto.SignupRequest;
+import com.example.vendingmachine.role.model.Role;
+import com.example.vendingmachine.user.model.User;
+import com.example.vendingmachine.role.repository.RoleRepository;
+import com.example.vendingmachine.user.repository.UserRepository;
 import com.example.vendingmachine.security.jwt.JwtUtils;
 import com.example.vendingmachine.security.services.UserDetailsImpl;
 import org.springframework.http.ResponseEntity;

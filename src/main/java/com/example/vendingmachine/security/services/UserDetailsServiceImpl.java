@@ -1,7 +1,7 @@
 package com.example.vendingmachine.security.services;
 
-import com.example.vendingmachine.model.User;
-import com.example.vendingmachine.repository.UserRepository;
+import com.example.vendingmachine.user.model.User;
+import com.example.vendingmachine.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

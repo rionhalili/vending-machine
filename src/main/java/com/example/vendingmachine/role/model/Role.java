@@ -1,5 +1,6 @@
-package com.example.vendingmachine.model;
+package com.example.vendingmachine.role.model;
 
+import com.example.vendingmachine.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;

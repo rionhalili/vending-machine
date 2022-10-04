@@ -1,4 +1,4 @@
-package com.example.vendingmachine.dto;
+package com.example.vendingmachine.user.dto;
 
 public class AuthenticationDTO {
     private String email;

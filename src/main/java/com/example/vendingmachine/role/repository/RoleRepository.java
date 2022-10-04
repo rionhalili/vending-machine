@@ -1,6 +1,6 @@
-package com.example.vendingmachine.repository;
+package com.example.vendingmachine.role.repository;
 
-import com.example.vendingmachine.model.Role;
+import com.example.vendingmachine.role.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

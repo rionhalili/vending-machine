@@ -1,4 +1,4 @@
-package com.example.vendingmachine.dto;
+package com.example.vendingmachine.user.dto;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,4 +1,7 @@
-package com.example.vendingmachine.model;
+package com.example.vendingmachine.user.model;
+
+import com.example.vendingmachine.product.model.Product;
+import com.example.vendingmachine.role.model.Role;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

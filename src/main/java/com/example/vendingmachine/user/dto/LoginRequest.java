@@ -1,14 +1,9 @@
-package com.example.vendingmachine.dto;
+package com.example.vendingmachine.user.dto;
 
-import com.example.vendingmachine.model.RoleType;
-
-import java.util.Set;
-
-public class SignupRequest {
+public class LoginRequest {
 
     private String username;
 
-    private RoleType role;
 
     private String password;
 
@@ -26,13 +21,5 @@ public class SignupRequest {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public RoleType getRole() {
-        return this.role;
-    }
-
-    public void setRole(RoleType role) {
-        this.role = role;
     }
 }

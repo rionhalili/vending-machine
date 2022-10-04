@@ -1,6 +1,6 @@
-package com.example.vendingmachine.repository;
+package com.example.vendingmachine.user.repository;
 
-import com.example.vendingmachine.model.User;
+import com.example.vendingmachine.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

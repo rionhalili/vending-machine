@@ -1,7 +1,7 @@
-package com.example.vendingmachine.service;
+package com.example.vendingmachine.user.service;
 
-import com.example.vendingmachine.dto.UserDTO;
-import com.example.vendingmachine.model.User;
+import com.example.vendingmachine.user.dto.UserDTO;
+import com.example.vendingmachine.user.model.User;
 
 import java.util.Optional;
 import java.util.UUID;

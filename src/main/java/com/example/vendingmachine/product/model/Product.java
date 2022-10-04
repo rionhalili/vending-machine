@@ -1,4 +1,6 @@
-package com.example.vendingmachine.model;
+package com.example.vendingmachine.product.model;
+
+import com.example.vendingmachine.user.model.User;
 
 import javax.persistence.*;
 import java.util.UUID;

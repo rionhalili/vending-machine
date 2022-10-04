@@ -1,7 +1,7 @@
 package com.example.vendingmachine.security.services;
 
-import com.example.vendingmachine.model.Role;
-import com.example.vendingmachine.model.User;
+import com.example.vendingmachine.role.model.Role;
+import com.example.vendingmachine.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
