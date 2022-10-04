@@ -3,15 +3,12 @@ package com.example.vendingmachine.dto;
 public class UserDTO {
     private String username;
     private String password;
-    private String role;
-
     public UserDTO() {
     }
 
-    public UserDTO(String username, String password, String role) {
+    public UserDTO(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
     public String getUsername() {
@@ -28,13 +25,5 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

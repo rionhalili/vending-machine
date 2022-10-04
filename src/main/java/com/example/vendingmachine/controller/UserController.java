@@ -36,15 +36,6 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/")
-    public ResponseEntity create(@RequestBody UserDTO userDTO) {
-        Optional<User> user = userService.findUserByUsername(userDTO.getUsername());
-        if (user.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(userService.saveUser(userDTO), HttpStatus.CREATED);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity update(@RequestBody UserDTO userDTO, @PathVariable UUID id) {
         Optional<User> user = userService.getUser(id);

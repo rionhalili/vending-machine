@@ -3,6 +3,7 @@ package com.example.vendingmachine.service;
 import com.example.vendingmachine.dto.UserDTO;
 import com.example.vendingmachine.model.User;
 import com.example.vendingmachine.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,9 +12,11 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,15 +35,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(UserDTO userDTO) {
-        User saveUser = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getRole());
-        return userRepository.save(saveUser);
-    }
-
-    @Override
-    public User updateUser(UUID id, UserDTO userDTO) {
-        User saveUser = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getRole());
-        saveUser.setId(id);
-        return userRepository.save(saveUser);
+    public Optional<User> updateUser(UUID id, UserDTO userDTO) {
+        User user = userRepository.findUserById(id);
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        return Optional.of(userRepository.save(user));
     }
 }

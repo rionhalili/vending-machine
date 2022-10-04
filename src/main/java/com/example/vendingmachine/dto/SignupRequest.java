@@ -1,12 +1,14 @@
 package com.example.vendingmachine.dto;
 
+import com.example.vendingmachine.model.RoleType;
+
 import java.util.Set;
 
 public class SignupRequest {
 
     private String username;
 
-//    private Set<String> role;
+    private RoleType role;
 
     private String password;
 
@@ -26,11 +28,11 @@ public class SignupRequest {
         this.password = password;
     }
 
-//    public Set<String> getRole() {
-//        return this.role;
-//    }
-//
-//    public void setRole(Set<String> role) {
-//        this.role = role;
-//    }
+    public RoleType getRole() {
+        return this.role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
 }
