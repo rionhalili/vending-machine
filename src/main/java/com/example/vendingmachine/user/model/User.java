@@ -2,6 +2,7 @@ package com.example.vendingmachine.user.model;
 
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.role.model.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,7 +33,8 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Product> productList;
 
     public User() {

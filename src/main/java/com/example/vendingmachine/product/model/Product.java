@@ -1,8 +1,17 @@
 package com.example.vendingmachine.product.model;
 
 import com.example.vendingmachine.user.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
@@ -11,7 +20,7 @@ public class Product {
 
     @Id
     @GeneratedValue
-    private String id;
+    private UUID id;
 
     @Column(name = "name")
     private String name;
@@ -22,18 +31,26 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "seller_id")
-    private UUID sellerId;
-
-    @ManyToOne
-    @JoinColumn(name="user_id")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public String getId() {
+    public Product() {
+    }
+
+    public Product(String name, Double amountAvailable, Double price, User user) {
+        this.name = name;
+        this.amountAvailable = amountAvailable;
+        this.price = price;
+        this.user = user;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -59,14 +76,6 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public UUID getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(UUID sellerId) {
-        this.sellerId = sellerId;
     }
 
     public User getUserId() {
