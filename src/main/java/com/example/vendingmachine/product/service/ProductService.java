@@ -1,5 +1,6 @@
 package com.example.vendingmachine.product.service;
 
+import com.example.vendingmachine.product.dto.ProductDTO;
 import com.example.vendingmachine.product.model.Product;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface ProductService {
     void delete(Product product);
 
     Product save(Product product);
+
+    Optional<Product> findById(UUID id);
+
+    Product update(Product product, ProductDTO productDTO);
 }

@@ -14,7 +14,5 @@ public interface UserService {
 
     void delete(User user);
 
-//    User saveUser(UserDTO userDTO);
-
     Optional<User> updateUser(UUID id, UserDTO userDTO);
 }

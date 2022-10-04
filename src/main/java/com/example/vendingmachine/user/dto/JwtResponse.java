@@ -1,6 +1,5 @@
 package com.example.vendingmachine.user.dto;
 
-import java.util.List;
 import java.util.UUID;
 
 public class JwtResponse {
@@ -18,20 +17,20 @@ public class JwtResponse {
         this.role = role;
     }
 
-    public String getAccessToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getTokenType() {
+    public String getType() {
         return type;
     }
 
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public UUID getId() {
@@ -49,8 +48,12 @@ public class JwtResponse {
     public void setUsername(String username) {
         this.username = username;
     }
-//
-//    public List<String> getRoles() {
-//        return roles;
-//    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

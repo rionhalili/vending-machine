@@ -3,7 +3,6 @@ package com.example.vendingmachine.product.model;
 import com.example.vendingmachine.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,11 +38,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, Double amountAvailable, Double price, User user) {
+    public Product(String name, Double amountAvailable, Double price) {
         this.name = name;
         this.amountAvailable = amountAvailable;
         this.price = price;
-        this.user = user;
     }
 
     public UUID getId() {

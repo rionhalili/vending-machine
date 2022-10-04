@@ -1,9 +1,5 @@
 package com.example.vendingmachine.product.dto;
 
-import com.example.vendingmachine.user.model.User;
-
-import java.util.UUID;
-
 public class ProductDTO {
 
     private Double amountAvailable;

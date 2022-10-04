@@ -1,5 +1,6 @@
 package com.example.vendingmachine.product.service;
 
+import com.example.vendingmachine.product.dto.ProductDTO;
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         return productRepository.saveAndFlush(product);
+    }
+
+    @Override
+    public Optional<Product> findById(UUID id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public Product update(Product product, ProductDTO productDTO) {
+        product.setName(productDTO.getName());
+        product.setPrice(productDTO.getPrice());
+        product.setAmountAvailable(productDTO.getAmountAvailable());
+        return productRepository.save(product);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-
-
     private ProductService productService;
 
     private UserService userService;
@@ -61,11 +60,28 @@ public class ProductController {
         Product product = new Product(
                 productDTO.getName(),
                 productDTO.getAmountAvailable(),
-                productDTO.getPrice(),
-                user.get()
+                productDTO.getPrice()
         );
+        product.setUserId(user.get());
         Product savedProduct = productService.save(product);
         return new ResponseEntity<>(savedProduct, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@RequestBody ProductDTO productDTO, @PathVariable UUID id) {
+        String currentUser = userDetailsService.getCurrentUser();
+
+        Optional<User> user = userService.findUserByUsername(currentUser);
+        if (user.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<Product> product = productService.findById(id);
+        if (product.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(productService.update(product.get(), productDTO), HttpStatus.OK);
+
     }
 
     @DeleteMapping("/{id}")
