@@ -2,7 +2,9 @@ package com.example.vendingmachine.product.service;
 
 import com.example.vendingmachine.product.dto.BuyDTO;
 import com.example.vendingmachine.product.dto.ProductDTO;
+import com.example.vendingmachine.product.dto.ReceiptDTO;
 import com.example.vendingmachine.product.model.Product;
+import com.example.vendingmachine.user.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,5 +23,5 @@ public interface ProductService {
 
     Product update(Product product, ProductDTO productDTO);
 
-    Product buy(Product product, BuyDTO buyDTO);
+    ReceiptDTO buy(User user, Product product, BuyDTO buyDTO);
 }

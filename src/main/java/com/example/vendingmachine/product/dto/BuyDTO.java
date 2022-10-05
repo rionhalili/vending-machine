@@ -1,25 +1,16 @@
 package com.example.vendingmachine.product.dto;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BuyDTO {
-    private UUID productId;
     private int amountOfProducts;
 
     public BuyDTO() {
     }
 
-    public BuyDTO(UUID productId, int amountOfProducts) {
-        this.productId = productId;
+    public BuyDTO(int amountOfProducts) {
         this.amountOfProducts = amountOfProducts;
-    }
-
-    public UUID getProductId() {
-        return productId;
-    }
-
-    public void setProductId(UUID productId) {
-        this.productId = productId;
     }
 
     public int getAmountOfProducts() {
@@ -28,5 +19,13 @@ public class BuyDTO {
 
     public void setAmountOfProducts(int amountOfProducts) {
         this.amountOfProducts = amountOfProducts;
+    }
+
+    public List<String> validate() {
+        List<String> errors = new ArrayList<>();
+        if (this.amountOfProducts <= 0) {
+            errors.add("Amount requested not allowed");
+        }
+        return errors;
     }
 }

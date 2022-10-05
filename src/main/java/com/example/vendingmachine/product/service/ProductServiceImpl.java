@@ -2,8 +2,12 @@ package com.example.vendingmachine.product.service;
 
 import com.example.vendingmachine.product.dto.BuyDTO;
 import com.example.vendingmachine.product.dto.ProductDTO;
+import com.example.vendingmachine.product.dto.ReceiptDTO;
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.product.repository.ProductRepository;
+import com.example.vendingmachine.user.model.User;
+import com.example.vendingmachine.user.repository.UserRepository;
+import com.example.vendingmachine.user.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +18,11 @@ import java.util.UUID;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final UserService userService;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserService userService) {
         this.productRepository = productRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -53,9 +59,31 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product buy(Product product, BuyDTO buyDTO) {
-        int finalAmountOfProducts = product.getAmountAvailable() - buyDTO.getAmountOfProducts();
+    public ReceiptDTO buy(User user, Product product, BuyDTO buyDTO) {
+        int finalAmountOfProducts = getAmount(product.getAmountAvailable(), buyDTO.getAmountOfProducts());
+
         product.setAmountAvailable(finalAmountOfProducts);
-        return productRepository.save(product);
+        Product boughtProduct = productRepository.save(product);
+
+        double change = getChange(user.getDeposit(), product.getPrice());
+
+        //update buyer deposit
+        userService.updateBuyerDeposit(user, change);
+        //update seller deposit
+        userService.updateSellerDeposit(boughtProduct.getUserId(), boughtProduct.getPrice());
+
+        return new ReceiptDTO(
+                product.getPrice(),
+                new ProductDTO(boughtProduct.getAmountAvailable(), boughtProduct.getName(), boughtProduct.getPrice()),
+                change
+        );
+    }
+
+    private double getChange(double deposit, double price) {
+        return deposit - price;
+    }
+
+    private int getAmount(int availableAmount, int requiredAmount) {
+        return availableAmount - requiredAmount;
     }
 }

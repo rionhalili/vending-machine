@@ -32,6 +32,9 @@ public class DepositController {
     @PutMapping(value = "/deposit", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BUYER')")
     public ResponseEntity<?> deposit(@RequestBody DepositDTO depositDTO) {
+        if(!depositDTO.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", depositDTO.validate()), HttpStatus.BAD_REQUEST);
+        }
         String currentUser = userDetailsService.getCurrentUser();
         Optional<User> user = userService.findUserByUsername(currentUser);
         if (user.isEmpty()) {

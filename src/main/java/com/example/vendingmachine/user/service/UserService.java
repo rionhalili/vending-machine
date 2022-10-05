@@ -19,7 +19,9 @@ public interface UserService {
 
     User deposit(User user, DepositDTO depositDTO);
 
-    User updateDeposit(User user, double deposit);
+    User updateBuyerDeposit(User user, double change);
+
+    User updateSellerDeposit(User user, double deposit);
 
     User reset(User user);
 }

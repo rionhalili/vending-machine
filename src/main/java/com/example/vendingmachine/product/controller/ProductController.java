@@ -52,7 +52,10 @@ public class ProductController {
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_SELLER')")
-    public ResponseEntity save(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<?> save(@RequestBody ProductDTO productDTO) {
+        if(!productDTO.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", productDTO.validate()), HttpStatus.BAD_REQUEST);
+        }
         String currentUser = userDetailsService.getCurrentUser();
         Optional<User> user = userService.findUserByUsername(currentUser);
         if (user.isEmpty()) {
@@ -71,6 +74,9 @@ public class ProductController {
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_SELLER')")
     public ResponseEntity update(@RequestBody ProductDTO productDTO, @PathVariable UUID id) {
+        if(!productDTO.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", productDTO.validate()), HttpStatus.BAD_REQUEST);
+        }
         String currentUser = userDetailsService.getCurrentUser();
 
         Optional<User> user = userService.findUserByUsername(currentUser);

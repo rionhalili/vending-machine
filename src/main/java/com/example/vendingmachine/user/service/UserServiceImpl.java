@@ -51,9 +51,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Transactional
     @Override
-    public User updateDeposit(User user, double deposit) {
+    public User updateBuyerDeposit(User user, double change) {
+        user.setDeposit(change);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateSellerDeposit(User user, double deposit) {
         user.setDeposit(user.getDeposit() + deposit);
         return userRepository.save(user);
     }
