@@ -23,7 +23,7 @@ public class DepositDTO {
 
     public List<String> validate() {
         List<String> errors = new ArrayList<>();
-        if(this.depositPrice <= 0.0) {
+        if (this.depositPrice <= 0.0) {
             errors.add("Price requested not allowed");
         }
         return errors;

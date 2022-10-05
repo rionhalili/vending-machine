@@ -39,7 +39,7 @@ public class UserController {
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> update(@RequestBody UserDTO userDTO, @PathVariable UUID id) {
-        if(!userDTO.validate().isEmpty()) {
+        if (!userDTO.validate().isEmpty()) {
             return new ResponseEntity<>(Map.of("message", userDTO.validate()), HttpStatus.NOT_FOUND);
         }
         Optional<User> user = userService.getUser(id);

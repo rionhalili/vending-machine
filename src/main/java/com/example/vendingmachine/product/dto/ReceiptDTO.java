@@ -1,14 +1,16 @@
 package com.example.vendingmachine.product.dto;
 
+import java.util.List;
+
 public class ReceiptDTO {
     private Double total;
     private ProductDTO productDTO;
-    private Double change;
+    private List<Integer> change;
 
     public ReceiptDTO() {
     }
 
-    public ReceiptDTO(Double total, ProductDTO productDTO, Double change) {
+    public ReceiptDTO(Double total, ProductDTO productDTO, List<Integer> change) {
         this.total = total;
         this.productDTO = productDTO;
         this.change = change;
@@ -30,11 +32,11 @@ public class ReceiptDTO {
         this.productDTO = productDTO;
     }
 
-    public Double getChange() {
+    public List<Integer> getChange() {
         return change;
     }
 
-    public void setChange(Double change) {
+    public void setChange(List<Integer> change) {
         this.change = change;
     }
 }

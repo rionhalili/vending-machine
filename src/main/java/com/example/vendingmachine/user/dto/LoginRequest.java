@@ -1,5 +1,8 @@
 package com.example.vendingmachine.user.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginRequest {
 
     private String username;
@@ -19,5 +22,16 @@ public class LoginRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<String> validate() {
+        List<String> errors = new ArrayList<>();
+        if(this.username.isEmpty()) {
+            errors.add("Username cannot be empty");
+        }
+        if(this.password.isEmpty()) {
+            errors.add("Password cannot be empty");
+        }
+        return errors;
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 public class UserDTO {
     private String username;
     private String password;
+
     public UserDTO() {
     }
 
@@ -32,10 +33,10 @@ public class UserDTO {
 
     public List<String> validate() {
         List<String> errors = new ArrayList<>();
-        if(this.username.isEmpty()) {
+        if (this.username.isEmpty()) {
             errors.add("Username cannot be empty");
         }
-        if(this.password.isEmpty()) {
+        if (this.password.isEmpty()) {
             errors.add("Password cannot be empty");
         }
         return errors;

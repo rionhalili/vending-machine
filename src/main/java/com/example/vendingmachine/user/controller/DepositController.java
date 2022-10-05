@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class DepositController {
     @PutMapping(value = "/deposit", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BUYER')")
     public ResponseEntity<?> deposit(@RequestBody DepositDTO depositDTO) {
-        if(!depositDTO.validate().isEmpty()) {
+        if (!depositDTO.validate().isEmpty()) {
             return new ResponseEntity<>(Map.of("message", depositDTO.validate()), HttpStatus.BAD_REQUEST);
         }
         String currentUser = userDetailsService.getCurrentUser();

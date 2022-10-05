@@ -1,7 +1,6 @@
 package com.example.vendingmachine.user.controller;
 
 import com.example.vendingmachine.role.model.Role;
-import com.example.vendingmachine.role.repository.RoleRepository;
 import com.example.vendingmachine.security.jwt.JwtUtils;
 import com.example.vendingmachine.security.services.UserDetailsImpl;
 import com.example.vendingmachine.user.dto.JwtResponse;
@@ -39,7 +38,7 @@ public class AuthController {
     final
     JwtUtils jwtUtils;
 
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder encoder, JwtUtils jwtUtils, RoleRepository roleRepository) {
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder encoder, JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.encoder = encoder;
@@ -48,7 +47,9 @@ public class AuthController {
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-
+        if (!loginRequest.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", loginRequest.validate()), HttpStatus.BAD_REQUEST);
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -70,6 +71,9 @@ public class AuthController {
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+        if (!signUpRequest.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", signUpRequest.validate()), HttpStatus.BAD_REQUEST);
+        }
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity<>(Map.of("message", "User with this username already exists"), HttpStatus.BAD_REQUEST);
         }

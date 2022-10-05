@@ -36,7 +36,7 @@ public class BuyController {
     @PostMapping(value = "/{id}/buy", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BUYER')")
     public ResponseEntity<?> buy(@PathVariable UUID id, @RequestBody BuyDTO buyDTO) {
-        if(buyDTO.validate().size() != 0) {
+        if (buyDTO.validate().size() != 0) {
             return new ResponseEntity<>(Map.of("message", buyDTO.validate()), HttpStatus.BAD_REQUEST);
         }
         String currentUser = userDetailsService.getCurrentUser();

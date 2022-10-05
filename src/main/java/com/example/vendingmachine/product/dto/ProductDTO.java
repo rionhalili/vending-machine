@@ -53,6 +53,9 @@ public class ProductDTO {
         if (this.price == null || this.price < 0) {
             errors.add("Product price cannot be empty or negative");
         }
+        if (this.price == null || this.price < 5) {
+            errors.add("Product price should be 5 or more");
+        }
         return errors;
     }
 }

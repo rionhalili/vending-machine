@@ -6,10 +6,10 @@ import com.example.vendingmachine.product.dto.ReceiptDTO;
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.product.repository.ProductRepository;
 import com.example.vendingmachine.user.model.User;
-import com.example.vendingmachine.user.repository.UserRepository;
 import com.example.vendingmachine.user.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,6 +19,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final UserService userService;
+    private static final int[] AVAILABLE_COINS = {100, 50, 20, 10, 5};
 
     public ProductServiceImpl(ProductRepository productRepository, UserService userService) {
         this.productRepository = productRepository;
@@ -65,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
         product.setAmountAvailable(finalAmountOfProducts);
         Product boughtProduct = productRepository.save(product);
 
-        double change = getChange(user.getDeposit(), product.getPrice());
+        double change = getChange(user.getDeposit(), (product.getPrice() * buyDTO.getAmountOfProducts()));
 
         //update buyer deposit
         userService.updateBuyerDeposit(user, change);
@@ -75,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
         return new ReceiptDTO(
                 product.getPrice(),
                 new ProductDTO(boughtProduct.getAmountAvailable(), boughtProduct.getName(), boughtProduct.getPrice()),
-                change
+                returnChange(change)
         );
     }
 
@@ -85,5 +86,19 @@ public class ProductServiceImpl implements ProductService {
 
     private int getAmount(int availableAmount, int requiredAmount) {
         return availableAmount - requiredAmount;
+    }
+
+    public List<Integer> returnChange(double amount) {
+        List<Integer> finalRes = new ArrayList<>();
+
+        while (amount > 0) {
+            for (int coin : AVAILABLE_COINS) {
+                if (amount >= coin) {
+                    amount = amount - coin;
+                    finalRes.add(coin);
+                }
+            }
+        }
+        return finalRes;
     }
 }
