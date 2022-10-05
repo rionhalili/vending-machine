@@ -1,14 +1,16 @@
 package com.example.vendingmachine.user.controller;
 
+import com.example.vendingmachine.role.model.Role;
+import com.example.vendingmachine.role.repository.RoleRepository;
+import com.example.vendingmachine.security.jwt.JwtUtils;
+import com.example.vendingmachine.security.services.UserDetailsImpl;
 import com.example.vendingmachine.user.dto.JwtResponse;
 import com.example.vendingmachine.user.dto.LoginRequest;
 import com.example.vendingmachine.user.dto.SignupRequest;
-import com.example.vendingmachine.role.model.Role;
 import com.example.vendingmachine.user.model.User;
-import com.example.vendingmachine.role.repository.RoleRepository;
 import com.example.vendingmachine.user.repository.UserRepository;
-import com.example.vendingmachine.security.jwt.JwtUtils;
-import com.example.vendingmachine.security.services.UserDetailsImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,21 +24,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    final
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    final
-    RoleRepository roleRepository;
-
-    final
-    PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     final
     JwtUtils jwtUtils;
@@ -46,10 +44,9 @@ public class AuthController {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
-        this.roleRepository = roleRepository;
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -71,12 +68,10 @@ public class AuthController {
         ));
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: Username is already taken!");
+            return new ResponseEntity<>(Map.of("message", "User with this username already exists"), HttpStatus.BAD_REQUEST);
         }
 
         //Create new Role
@@ -89,8 +84,7 @@ public class AuthController {
 
         //Save user
         userRepository.save(user);
-
-        return ResponseEntity.ok("User registered successfully!");
+        return new ResponseEntity<>(Map.of("message", "User registered successfully!"), HttpStatus.BAD_REQUEST);
     }
 
 }

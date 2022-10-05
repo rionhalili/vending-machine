@@ -18,10 +18,10 @@ import java.util.Date;
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
-    @Value("${bezkoder.app.jwtSecret}")
+    @Value("${vending.machine.secretKey}")
     private String jwtSecret;
 
-    @Value("${bezkoder.app.jwtExpirationMs}")
+    @Value("${vending.machine.app.expiration}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {

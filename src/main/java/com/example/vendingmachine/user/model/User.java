@@ -23,11 +23,14 @@ public class User {
     @GeneratedValue
     private UUID id = UUID.randomUUID();
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "deposit")
+    private Double deposit = 0.0;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
@@ -88,5 +91,13 @@ public class User {
 
     public void setProductList(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public Double getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(Double deposit) {
+        this.deposit = deposit;
     }
 }

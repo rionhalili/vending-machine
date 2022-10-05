@@ -1,5 +1,6 @@
 package com.example.vendingmachine.product.service;
 
+import com.example.vendingmachine.product.dto.BuyDTO;
 import com.example.vendingmachine.product.dto.ProductDTO;
 import com.example.vendingmachine.product.model.Product;
 
@@ -19,4 +20,6 @@ public interface ProductService {
     Optional<Product> findById(UUID id);
 
     Product update(Product product, ProductDTO productDTO);
+
+    Product buy(Product product, BuyDTO buyDTO);
 }

@@ -21,11 +21,11 @@ public class Product {
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "amount_available")
-    private Double amountAvailable;
+    private int amountAvailable;
 
     @Column(name = "price")
     private Double price;
@@ -38,7 +38,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, Double amountAvailable, Double price) {
+    public Product(String name, int amountAvailable, Double price) {
         this.name = name;
         this.amountAvailable = amountAvailable;
         this.price = price;
@@ -60,11 +60,11 @@ public class Product {
         this.name = name;
     }
 
-    public Double getAmountAvailable() {
+    public int getAmountAvailable() {
         return amountAvailable;
     }
 
-    public void setAmountAvailable(Double amountAvailable) {
+    public void setAmountAvailable(int amountAvailable) {
         this.amountAvailable = amountAvailable;
     }
 

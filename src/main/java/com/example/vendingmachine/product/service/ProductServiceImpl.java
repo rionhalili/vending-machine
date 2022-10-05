@@ -1,5 +1,6 @@
 package com.example.vendingmachine.product.service;
 
+import com.example.vendingmachine.product.dto.BuyDTO;
 import com.example.vendingmachine.product.dto.ProductDTO;
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.product.repository.ProductRepository;
@@ -48,6 +49,13 @@ public class ProductServiceImpl implements ProductService {
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
         product.setAmountAvailable(productDTO.getAmountAvailable());
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product buy(Product product, BuyDTO buyDTO) {
+        int finalAmountOfProducts = product.getAmountAvailable() - buyDTO.getAmountOfProducts();
+        product.setAmountAvailable(finalAmountOfProducts);
         return productRepository.save(product);
     }
 }

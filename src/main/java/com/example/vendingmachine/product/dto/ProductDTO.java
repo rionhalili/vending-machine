@@ -2,24 +2,24 @@ package com.example.vendingmachine.product.dto;
 
 public class ProductDTO {
 
-    private Double amountAvailable;
+    private int amountAvailable;
     private String name;
     private Double price;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Double amountAvailable, String name, Double price) {
+    public ProductDTO(int amountAvailable, String name, Double price) {
         this.amountAvailable = amountAvailable;
         this.name = name;
         this.price = price;
     }
 
-    public Double getAmountAvailable() {
+    public int getAmountAvailable() {
         return amountAvailable;
     }
 
-    public void setAmountAvailable(Double amountAvailable) {
+    public void setAmountAvailable(int amountAvailable) {
         this.amountAvailable = amountAvailable;
     }
 

@@ -3,6 +3,7 @@ package com.example.vendingmachine.role.model;
 import com.example.vendingmachine.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,6 +20,7 @@ public class Role {
     @GeneratedValue
     private UUID id;
     @Enumerated(EnumType.STRING)
+    @Column(name = "name", nullable = false)
     private RoleType name;
 
     @OneToOne(mappedBy = "role")

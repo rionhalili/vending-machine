@@ -7,7 +7,9 @@ import com.example.vendingmachine.security.services.UserDetailsServiceImpl;
 import com.example.vendingmachine.user.model.User;
 import com.example.vendingmachine.user.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,17 +19,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    private ProductService productService;
-
-    private UserService userService;
-
-    private UserDetailsServiceImpl userDetailsService;
+    private final ProductService productService;
+    private final UserService userService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     public ProductController(ProductService productService, UserService userService, UserDetailsServiceImpl userDetailsService) {
         this.productService = productService;
@@ -35,27 +36,27 @@ public class ProductController {
         this.userDetailsService = userDetailsService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity get(@PathVariable("id") UUID id) {
         Optional<Product> product = productService.getProduct(id);
         if (product.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "Product not found"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity list() {
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public ResponseEntity save(@RequestBody ProductDTO productDTO) {
         String currentUser = userDetailsService.getCurrentUser();
-
         Optional<User> user = userService.findUserByUsername(currentUser);
         if (user.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "Product not owned by user"), HttpStatus.NOT_FOUND);
         }
         Product product = new Product(
                 productDTO.getName(),
@@ -67,30 +68,30 @@ public class ProductController {
         return new ResponseEntity<>(savedProduct, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public ResponseEntity update(@RequestBody ProductDTO productDTO, @PathVariable UUID id) {
         String currentUser = userDetailsService.getCurrentUser();
 
         Optional<User> user = userService.findUserByUsername(currentUser);
         if (user.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "Product not owned by user"), HttpStatus.NOT_FOUND);
         }
         Optional<Product> product = productService.findById(id);
         if (product.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "Product not found"), HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(productService.update(product.get(), productDTO), HttpStatus.OK);
-
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity delete(@PathVariable UUID id) {
         Optional<Product> product = productService.getProduct(id);
         if (product.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "Product not found"), HttpStatus.NOT_FOUND);
         }
         productService.delete(product.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(Map.of("message", "Product deleted successfully"), HttpStatus.OK);
     }
 }

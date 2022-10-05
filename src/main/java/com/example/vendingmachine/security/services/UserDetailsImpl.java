@@ -16,14 +16,14 @@ import java.util.UUID;
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private UUID id;
+    private final UUID id;
 
-    private String username;
+    private final String username;
 
     @JsonIgnore
-    private String password;
+    private final String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(UUID id, String username, String password,
                            Collection<? extends GrantedAuthority> authorities) {

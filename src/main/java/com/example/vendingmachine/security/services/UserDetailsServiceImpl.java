@@ -28,11 +28,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return UserDetailsImpl.build(user);
     }
 
-    public String getCurrentUser() {
+    public String getCurrentUser() throws UsernameNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return authentication.getName();
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            throw new UsernameNotFoundException("Current username not found");
         }
-        return "";
+        return authentication.getName();
     }
 }

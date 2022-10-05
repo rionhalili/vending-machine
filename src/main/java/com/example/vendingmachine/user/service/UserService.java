@@ -1,5 +1,6 @@
 package com.example.vendingmachine.user.service;
 
+import com.example.vendingmachine.user.dto.DepositDTO;
 import com.example.vendingmachine.user.dto.UserDTO;
 import com.example.vendingmachine.user.model.User;
 
@@ -15,4 +16,10 @@ public interface UserService {
     void delete(User user);
 
     Optional<User> updateUser(UUID id, UserDTO userDTO);
+
+    User deposit(User user, DepositDTO depositDTO);
+
+    User updateDeposit(User user, double deposit);
+
+    User reset(User user);
 }
