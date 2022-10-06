@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
         return availableAmount - requiredAmount;
     }
 
-    public List<Integer> returnChange(double amount) {
+    private List<Integer> returnChange(double amount) {
         List<Integer> finalRes = new ArrayList<>();
 
         while (amount > 0) {
