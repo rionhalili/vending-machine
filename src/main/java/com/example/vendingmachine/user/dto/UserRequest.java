@@ -3,14 +3,14 @@ package com.example.vendingmachine.user.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTO {
+public class UserRequest {
     private String username;
     private String password;
 
-    public UserDTO() {
+    public UserRequest() {
     }
 
-    public UserDTO(String username, String password) {
+    public UserRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }

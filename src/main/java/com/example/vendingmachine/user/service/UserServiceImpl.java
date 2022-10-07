@@ -1,13 +1,12 @@
 package com.example.vendingmachine.user.service;
 
 import com.example.vendingmachine.user.dto.DepositDTO;
-import com.example.vendingmachine.user.dto.UserDTO;
+import com.example.vendingmachine.user.dto.UserRequest;
 import com.example.vendingmachine.user.model.User;
 import com.example.vendingmachine.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,10 +36,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> updateUser(UUID id, UserDTO userDTO) {
+    public Optional<User> updateUser(UUID id, UserRequest userRequest) {
         User user = userRepository.findUserById(id);
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setUsername(userRequest.getUsername());
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         return Optional.of(userRepository.save(user));
     }
 

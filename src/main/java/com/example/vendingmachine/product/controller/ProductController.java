@@ -1,6 +1,6 @@
 package com.example.vendingmachine.product.controller;
 
-import com.example.vendingmachine.product.dto.ProductDTO;
+import com.example.vendingmachine.product.dto.ProductRequest;
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.product.service.ProductService;
 import com.example.vendingmachine.security.services.UserDetailsServiceImpl;
@@ -52,9 +52,9 @@ public class ProductController {
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_SELLER')")
-    public ResponseEntity<?> save(@RequestBody ProductDTO productDTO) {
-        if(!productDTO.validate().isEmpty()) {
-            return new ResponseEntity<>(Map.of("message", productDTO.validate()), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> save(@RequestBody ProductRequest productRequest) {
+        if(!productRequest.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", productRequest.validate()), HttpStatus.BAD_REQUEST);
         }
         String currentUser = userDetailsService.getCurrentUser();
         Optional<User> user = userService.findUserByUsername(currentUser);
@@ -62,9 +62,9 @@ public class ProductController {
             return new ResponseEntity<>(Map.of("message", "Product not owned by user"), HttpStatus.NOT_FOUND);
         }
         Product product = new Product(
-                productDTO.getName(),
-                productDTO.getAmountAvailable(),
-                productDTO.getPrice()
+                productRequest.getName(),
+                productRequest.getAmountAvailable(),
+                productRequest.getPrice()
         );
         product.setUserId(user.get());
         Product savedProduct = productService.save(product);
@@ -73,9 +73,9 @@ public class ProductController {
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_SELLER')")
-    public ResponseEntity update(@RequestBody ProductDTO productDTO, @PathVariable UUID id) {
-        if(!productDTO.validate().isEmpty()) {
-            return new ResponseEntity<>(Map.of("message", productDTO.validate()), HttpStatus.BAD_REQUEST);
+    public ResponseEntity update(@RequestBody ProductRequest productRequest, @PathVariable UUID id) {
+        if(!productRequest.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", productRequest.validate()), HttpStatus.BAD_REQUEST);
         }
         String currentUser = userDetailsService.getCurrentUser();
 
@@ -88,7 +88,7 @@ public class ProductController {
             return new ResponseEntity<>(Map.of("message", "Product not found"), HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(productService.update(product.get(), productDTO), HttpStatus.OK);
+        return new ResponseEntity<>(productService.update(product.get(), productRequest), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,7 +1,7 @@
 package com.example.vendingmachine.product.service;
 
-import com.example.vendingmachine.product.dto.BuyDTO;
-import com.example.vendingmachine.product.dto.ProductDTO;
+import com.example.vendingmachine.product.dto.BuyRequest;
+import com.example.vendingmachine.product.dto.ProductRequest;
 import com.example.vendingmachine.product.dto.ReceiptDTO;
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.product.repository.ProductRepository;
@@ -52,30 +52,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product, ProductDTO productDTO) {
-        product.setName(productDTO.getName());
-        product.setPrice(productDTO.getPrice());
-        product.setAmountAvailable(productDTO.getAmountAvailable());
+    public Product update(Product product, ProductRequest productRequest) {
+        product.setName(productRequest.getName());
+        product.setPrice(productRequest.getPrice());
+        product.setAmountAvailable(productRequest.getAmountAvailable());
         return productRepository.save(product);
     }
 
     @Override
-    public ReceiptDTO buy(User user, Product product, BuyDTO buyDTO) {
-        int finalAmountOfProducts = getAmount(product.getAmountAvailable(), buyDTO.getAmountOfProducts());
+    public ReceiptDTO buy(User user, Product product, BuyRequest buyRequest) {
+        int finalAmountOfProducts = getAmount(product.getAmountAvailable(), buyRequest.getAmountOfProducts());
 
         product.setAmountAvailable(finalAmountOfProducts);
         Product boughtProduct = productRepository.save(product);
 
-        double change = getChange(user.getDeposit(), (product.getPrice() * buyDTO.getAmountOfProducts()));
+
+        double total = product.getPrice() * buyRequest.getAmountOfProducts();
+        double change = getChange(user.getDeposit(), total);
 
         //update buyer deposit
         userService.updateBuyerDeposit(user, change);
         //update seller deposit
-        userService.updateSellerDeposit(boughtProduct.getUserId(), boughtProduct.getPrice());
+        userService.updateSellerDeposit(boughtProduct.getUserId(), total);
 
         return new ReceiptDTO(
-                product.getPrice(),
-                new ProductDTO(boughtProduct.getAmountAvailable(), boughtProduct.getName(), boughtProduct.getPrice()),
+                total,
+                new ProductRequest(boughtProduct.getAmountAvailable(), boughtProduct.getName(), boughtProduct.getPrice()),
                 returnChange(change)
         );
     }

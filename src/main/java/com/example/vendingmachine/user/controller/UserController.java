@@ -1,6 +1,6 @@
 package com.example.vendingmachine.user.controller;
 
-import com.example.vendingmachine.user.dto.UserDTO;
+import com.example.vendingmachine.user.dto.UserRequest;
 import com.example.vendingmachine.user.model.User;
 import com.example.vendingmachine.user.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -38,16 +38,16 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@RequestBody UserDTO userDTO, @PathVariable UUID id) {
-        if (!userDTO.validate().isEmpty()) {
-            return new ResponseEntity<>(Map.of("message", userDTO.validate()), HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> update(@RequestBody UserRequest userRequest, @PathVariable UUID id) {
+        if (!userRequest.validate().isEmpty()) {
+            return new ResponseEntity<>(Map.of("message", userRequest.validate()), HttpStatus.NOT_FOUND);
         }
         Optional<User> user = userService.getUser(id);
         if (user.isEmpty()) {
             return new ResponseEntity<>(Map.of("message", "User not found"), HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(userService.updateUser(id, userDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.updateUser(id, userRequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

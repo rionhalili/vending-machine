@@ -4,15 +4,15 @@ import java.util.List;
 
 public class ReceiptDTO {
     private Double total;
-    private ProductDTO productDTO;
+    private ProductRequest productRequest;
     private List<Integer> change;
 
     public ReceiptDTO() {
     }
 
-    public ReceiptDTO(Double total, ProductDTO productDTO, List<Integer> change) {
+    public ReceiptDTO(Double total, ProductRequest productRequest, List<Integer> change) {
         this.total = total;
-        this.productDTO = productDTO;
+        this.productRequest = productRequest;
         this.change = change;
     }
 
@@ -24,12 +24,12 @@ public class ReceiptDTO {
         this.total = total;
     }
 
-    public ProductDTO getProductDTO() {
-        return productDTO;
+    public ProductRequest getProductDTO() {
+        return productRequest;
     }
 
-    public void setProductDTO(ProductDTO productDTO) {
-        this.productDTO = productDTO;
+    public void setProductDTO(ProductRequest productRequest) {
+        this.productRequest = productRequest;
     }
 
     public List<Integer> getChange() {

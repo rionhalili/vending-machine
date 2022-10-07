@@ -3,13 +3,13 @@ package com.example.vendingmachine.product.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuyDTO {
+public class BuyRequest {
     private int amountOfProducts;
 
-    public BuyDTO() {
+    public BuyRequest() {
     }
 
-    public BuyDTO(int amountOfProducts) {
+    public BuyRequest(int amountOfProducts) {
         this.amountOfProducts = amountOfProducts;
     }
 

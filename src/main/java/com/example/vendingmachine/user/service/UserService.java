@@ -1,7 +1,7 @@
 package com.example.vendingmachine.user.service;
 
 import com.example.vendingmachine.user.dto.DepositDTO;
-import com.example.vendingmachine.user.dto.UserDTO;
+import com.example.vendingmachine.user.dto.UserRequest;
 import com.example.vendingmachine.user.model.User;
 
 import java.util.Optional;
@@ -15,7 +15,7 @@ public interface UserService {
 
     void delete(User user);
 
-    Optional<User> updateUser(UUID id, UserDTO userDTO);
+    Optional<User> updateUser(UUID id, UserRequest userRequest);
 
     User deposit(User user, DepositDTO depositDTO);
 

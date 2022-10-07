@@ -26,6 +26,9 @@ public class DepositDTO {
         if (this.depositPrice <= 0.0) {
             errors.add("Price requested not allowed");
         }
+        if(this.depositPrice > 100) {
+            errors.add("Maximum coin value exceeded.");
+        }
         return errors;
     }
 }

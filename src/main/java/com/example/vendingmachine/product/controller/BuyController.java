@@ -1,6 +1,6 @@
 package com.example.vendingmachine.product.controller;
 
-import com.example.vendingmachine.product.dto.BuyDTO;
+import com.example.vendingmachine.product.dto.BuyRequest;
 import com.example.vendingmachine.product.model.Product;
 import com.example.vendingmachine.product.service.ProductService;
 import com.example.vendingmachine.security.services.UserDetailsServiceImpl;
@@ -35,9 +35,9 @@ public class BuyController {
 
     @PostMapping(value = "/{id}/buy", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BUYER')")
-    public ResponseEntity<?> buy(@PathVariable UUID id, @RequestBody BuyDTO buyDTO) {
-        if (buyDTO.validate().size() != 0) {
-            return new ResponseEntity<>(Map.of("message", buyDTO.validate()), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> buy(@PathVariable UUID id, @RequestBody BuyRequest buyRequest) {
+        if (buyRequest.validate().size() != 0) {
+            return new ResponseEntity<>(Map.of("message", buyRequest.validate()), HttpStatus.BAD_REQUEST);
         }
         String currentUser = userDetailsService.getCurrentUser();
         Optional<User> user = userService.findUserByUsername(currentUser);
@@ -48,13 +48,13 @@ public class BuyController {
         if (product.isEmpty()) {
             return new ResponseEntity<>(Map.of("message", "Product not found"), HttpStatus.NOT_FOUND);
         }
-        if (product.get().getAmountAvailable() < buyDTO.getAmountOfProducts()) {
+        if (product.get().getAmountAvailable() < buyRequest.getAmountOfProducts()) {
             return new ResponseEntity<>(Map.of("message", "Amount of products not available"), HttpStatus.BAD_REQUEST);
         }
 
         if (product.get().getPrice() > user.get().getDeposit()) {
             return new ResponseEntity<>(Map.of("message", "Not enough money in deposit"), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(productService.buy(user.get(), product.get(), buyDTO), HttpStatus.OK);
+        return new ResponseEntity<>(productService.buy(user.get(), product.get(), buyRequest), HttpStatus.OK);
     }
 }

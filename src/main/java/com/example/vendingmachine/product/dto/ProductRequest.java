@@ -3,16 +3,16 @@ package com.example.vendingmachine.product.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDTO {
+public class ProductRequest {
 
     private int amountAvailable;
     private String name;
     private Double price;
 
-    public ProductDTO() {
+    public ProductRequest() {
     }
 
-    public ProductDTO(int amountAvailable, String name, Double price) {
+    public ProductRequest(int amountAvailable, String name, Double price) {
         this.amountAvailable = amountAvailable;
         this.name = name;
         this.price = price;
