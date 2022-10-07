@@ -68,7 +68,8 @@ class DepositControllerTest {
         when(userDetailsService.getCurrentUser()).thenReturn("buyer");
         when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
 
-        mockMvc.perform(put("/api/users/deposit")
+        String depositEndpoint = "/api/users/deposit";
+        mockMvc.perform(put(depositEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
@@ -83,7 +84,8 @@ class DepositControllerTest {
     public void shouldReturnNotFoundWhenUserDoesNotExistOnDepositEndpoint() throws Exception {
         DepositDTO depositDTO = new DepositDTO(100.00);
 
-        mockMvc.perform(put("/api/users/deposit")
+        String depositEndpoint = "/api/users/deposit";
+        mockMvc.perform(put(depositEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
@@ -99,7 +101,8 @@ class DepositControllerTest {
     public void shouldReturnBadRequestWhenDepositIsBiggerThanAllowedValue() throws Exception {
         DepositDTO depositDTO = new DepositDTO(110.00);
 
-        mockMvc.perform(put("/api/users/deposit")
+        String depositEndpoint = "/api/users/deposit";
+        mockMvc.perform(put(depositEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
@@ -124,7 +127,8 @@ class DepositControllerTest {
         when(userDetailsService.getCurrentUser()).thenReturn("buyer");
         when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
 
-        mockMvc.perform(put("/api/users/reset")
+        String resetEndpoint = "/api/users/reset";
+        mockMvc.perform(put(resetEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
@@ -139,7 +143,8 @@ class DepositControllerTest {
     public void shouldReturnNotFoundWhenUserDoesNotExistOnResetEndpoint() throws Exception {
         DepositDTO depositDTO = new DepositDTO(100.00);
 
-        mockMvc.perform(put("/api/users/reset")
+        String resetEndpoint = "/api/users/reset";
+        mockMvc.perform(put(resetEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))

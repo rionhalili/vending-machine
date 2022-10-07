@@ -9,6 +9,7 @@ import com.example.vendingmachine.security.services.UserDetailsServiceImpl;
 import com.example.vendingmachine.user.model.User;
 import com.example.vendingmachine.user.service.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +53,8 @@ class BuyControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    protected void setUp() {
+    @Before
+    void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build();
@@ -77,7 +79,8 @@ class BuyControllerTest {
         when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
         when(productService.getProduct(productId)).thenReturn(Optional.of(product));
 
-        mockMvc.perform(post("/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy")
+        String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
+        mockMvc.perform(post(buyEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -108,7 +111,8 @@ class BuyControllerTest {
         when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
         when(productService.getProduct(productId)).thenReturn(Optional.of(product));
 
-        mockMvc.perform(post("/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy")
+        String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
+        mockMvc.perform(post(buyEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -138,7 +142,8 @@ class BuyControllerTest {
         when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
         when(productService.getProduct(productId)).thenReturn(Optional.of(product));
 
-        mockMvc.perform(post("/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy")
+        String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
+        mockMvc.perform(post(buyEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -165,7 +170,8 @@ class BuyControllerTest {
         when(userDetailsService.getCurrentUser()).thenReturn("buyer");
         when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
 
-        mockMvc.perform(post("/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy")
+        String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
+        mockMvc.perform(post(buyEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)

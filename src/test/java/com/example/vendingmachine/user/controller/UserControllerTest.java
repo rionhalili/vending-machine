@@ -6,6 +6,7 @@ import com.example.vendingmachine.user.dto.UserRequest;
 import com.example.vendingmachine.user.model.User;
 import com.example.vendingmachine.user.service.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +45,8 @@ class UserControllerTest {
     @Autowired
     WebApplicationContext webApplicationContext;
 
-    protected void setUp() {
+    @Before
+    void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build();
@@ -62,11 +64,11 @@ class UserControllerTest {
                 "password",
                 role
         );
-        String GET_USER_ENDPOINT = "/api/users/" + user.getId();
+        String getEndpoint = "/api/users/" + user.getId();
 
         when(userService.getUser(user.getId())).thenReturn(Optional.of(user));
 
-        mockMvc.perform(get(GET_USER_ENDPOINT)
+        mockMvc.perform(get(getEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
@@ -84,9 +86,9 @@ class UserControllerTest {
                 "password",
                 role
         );
-        String GET_USER_ENDPOINT = "/api/users/" + user.getId();
+        String getEndpoint = "/api/users/" + user.getId();
 
-        mockMvc.perform(get(GET_USER_ENDPOINT)
+        mockMvc.perform(get(getEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
@@ -106,11 +108,11 @@ class UserControllerTest {
                 "password",
                 role
         );
-        String UPDATE_ENDPOINT = "/api/users/" + user.getId();
+        String updateEndpoint = "/api/users/" + user.getId();
 
         when(userService.getUser(user.getId())).thenReturn(Optional.of(user));
 
-        mockMvc.perform(put(UPDATE_ENDPOINT)
+        mockMvc.perform(put(updateEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequest))
@@ -130,10 +132,9 @@ class UserControllerTest {
                 "password",
                 role
         );
-        String UPDATE_ENDPOINT = "/api/users/" + user.getId();
+        String updateEndpoint = "/api/users/" + user.getId();
 
-
-        mockMvc.perform(put(UPDATE_ENDPOINT)
+        mockMvc.perform(put(updateEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequest))
@@ -153,11 +154,11 @@ class UserControllerTest {
                 "password",
                 role
         );
-        String DELETE_ENDPOINT = "/api/users/" + user.getId();
+        String deleteEndpoint = "/api/users/" + user.getId();
 
         when(userService.getUser(user.getId())).thenReturn(Optional.of(user));
 
-        mockMvc.perform(delete(DELETE_ENDPOINT)
+        mockMvc.perform(delete(deleteEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
@@ -176,9 +177,9 @@ class UserControllerTest {
                 "password",
                 role
         );
-        String DELETE_ENDPOINT = "/api/users/" + user.getId();
+        String deleteEndpoint = "/api/users/" + user.getId();
 
-        mockMvc.perform(delete(DELETE_ENDPOINT)
+        mockMvc.perform(delete(deleteEndpoint)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
