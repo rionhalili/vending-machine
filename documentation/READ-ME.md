@@ -32,6 +32,12 @@ After a successful connection to database, you can run the project through Intel
 The project structure is formed by Users, Products, Roles which are considered as domains of the
 application.
 
+# Regarding testing
+I have used MockMVC to test the endpoints. Tests are provided for
+* Buy endpoint
+* Deposit endpoint
+* User CRUD
+
 
 ![](img/Project_Structure.png)
 
@@ -66,3 +72,6 @@ API could be tested with Postman as well.
 5. Login with user `Buyer`
 6. Deposit coins in account
 7. Buy product
+
+# Final notes
+The CRUD for Roles is not implemented
