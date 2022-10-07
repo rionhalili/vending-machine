@@ -39,13 +39,13 @@ public class SignupRequest {
 
     public List<String> validate() {
         List<String> errors = new ArrayList<>();
-        if(this.username.isEmpty()) {
+        if (this.username.isEmpty()) {
             errors.add("Username cannot be empty");
         }
-        if(this.password.isEmpty()) {
+        if (this.password.isEmpty()) {
             errors.add("Password cannot be empty");
         }
-        if(this.role.getName().isEmpty()) {
+        if (this.role.getName().isEmpty()) {
             errors.add("Role cannot be empty");
         }
 

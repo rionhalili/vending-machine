@@ -53,7 +53,7 @@ public class ProductController {
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_SELLER')")
     public ResponseEntity<?> save(@RequestBody ProductRequest productRequest) {
-        if(!productRequest.validate().isEmpty()) {
+        if (!productRequest.validate().isEmpty()) {
             return new ResponseEntity<>(Map.of("message", productRequest.validate()), HttpStatus.BAD_REQUEST);
         }
         String currentUser = userDetailsService.getCurrentUser();
@@ -74,7 +74,7 @@ public class ProductController {
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_SELLER')")
     public ResponseEntity update(@RequestBody ProductRequest productRequest, @PathVariable UUID id) {
-        if(!productRequest.validate().isEmpty()) {
+        if (!productRequest.validate().isEmpty()) {
             return new ResponseEntity<>(Map.of("message", productRequest.validate()), HttpStatus.BAD_REQUEST);
         }
         String currentUser = userDetailsService.getCurrentUser();

@@ -1,8 +1,6 @@
 package com.example.vendingmachine.user.dto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class DepositDTO {
@@ -32,7 +30,7 @@ public class DepositDTO {
         if (this.depositPrice <= 0.0) {
             errors.add("Price requested not allowed");
         }
-        if(this.depositPrice > 100) {
+        if (this.depositPrice > 100) {
             errors.add("Maximum coin value exceeded.");
         }
         return errors;
