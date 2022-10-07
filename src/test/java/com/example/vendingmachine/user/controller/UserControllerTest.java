@@ -55,12 +55,12 @@ class UserControllerTest {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return requested user")
     public void shouldReturnRequestedUser() throws Exception {
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
@@ -77,12 +77,12 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return NOT FOUND when user does not exist")
     public void shouldReturnNotFoundWhenUserDoesNotExist() throws Exception {
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
@@ -98,13 +98,13 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should update user successfully")
     public void shouldUpdateUserSuccessfully() throws Exception {
         UserRequest userRequest = new UserRequest("updatedUser", "password");
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
@@ -122,13 +122,13 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return NOT FOUND when requested to update user")
     public void shouldReturnNotFoundWhenRequestedToUpdateUser() throws Exception {
         UserRequest userRequest = new UserRequest("updatedUser", "password");
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
@@ -145,12 +145,12 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should delete user successfully")
     public void shouldDeleteUserSuccessfully() throws Exception {
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
@@ -168,12 +168,12 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return NOT FOUND when requested to delete user")
     public void shouldReturnNotFoundWhenRequestedToDeleteUser() throws Exception {
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );

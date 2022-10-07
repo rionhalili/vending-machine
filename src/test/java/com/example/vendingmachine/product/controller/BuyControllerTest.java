@@ -61,13 +61,13 @@ class BuyControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return BAD REQUEST when there are not enough money in deposit")
     public void shouldReturnBadRequestWhenThereAreNotEnoughMoneyInDeposit() throws Exception {
         BuyRequest buyRequest = new BuyRequest(1);
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
@@ -75,8 +75,8 @@ class BuyControllerTest {
         Product product = new Product("Coca-cola", 1, 100.00);
         UUID productId = UUID.fromString("725cc71e-a39e-4005-85cb-6dfb45b77646");
 
-        when(userDetailsService.getCurrentUser()).thenReturn("buyer");
-        when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
+        when(userDetailsService.getCurrentUser()).thenReturn("buyerUser");
+        when(userService.findUserByUsername("buyerUser")).thenReturn(Optional.of(user));
         when(productService.getProduct(productId)).thenReturn(Optional.of(product));
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
@@ -92,13 +92,13 @@ class BuyControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return OK when user has deposit and request an allowed amount of product")
     public void shouldReturnOKWhenUserHasDepositAndRequestAnAllowedAmountOfProduct() throws Exception {
         BuyRequest buyRequest = new BuyRequest(1);
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
@@ -107,8 +107,8 @@ class BuyControllerTest {
         Product product = new Product("Coca-cola", 1, 100.00);
         UUID productId = UUID.fromString("725cc71e-a39e-4005-85cb-6dfb45b77646");
 
-        when(userDetailsService.getCurrentUser()).thenReturn("buyer");
-        when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
+        when(userDetailsService.getCurrentUser()).thenReturn("buyerUser");
+        when(userService.findUserByUsername("buyerUser")).thenReturn(Optional.of(user));
         when(productService.getProduct(productId)).thenReturn(Optional.of(product));
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
@@ -123,23 +123,22 @@ class BuyControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return BAD REQUEST when there is an disallowed value for amount of products")
     public void shouldReturnBadRequestWhenThereIsAnDisallowedValueForAmountOfProducts() throws Exception {
         BuyRequest buyRequest = new BuyRequest(-1);
         Role role = new Role(RoleType.ROLE_BUYER);
         User user = new User(
-                "buyer",
+                "buyerUser",
                 "password",
                 role
         );
-        user.setDeposit(200.00);
 
         Product product = new Product("Coca-cola", 1, 100.00);
         UUID productId = UUID.fromString("725cc71e-a39e-4005-85cb-6dfb45b77646");
 
-        when(userDetailsService.getCurrentUser()).thenReturn("buyer");
-        when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
+        when(userDetailsService.getCurrentUser()).thenReturn("buyerUser");
+        when(userService.findUserByUsername("buyerUser")).thenReturn(Optional.of(user));
         when(productService.getProduct(productId)).thenReturn(Optional.of(product));
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
@@ -155,7 +154,7 @@ class BuyControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyerUser")
     @DisplayName("Should return NOT FOUND when product is not available")
     public void shouldReturnNotFoundWhenProductIsNotAvailable() throws Exception {
         BuyRequest buyRequest = new BuyRequest(1);
@@ -167,8 +166,8 @@ class BuyControllerTest {
         );
         user.setDeposit(200.00);
 
-        when(userDetailsService.getCurrentUser()).thenReturn("buyer");
-        when(userService.findUserByUsername("buyer")).thenReturn(Optional.of(user));
+        when(userDetailsService.getCurrentUser()).thenReturn("buyerUser");
+        when(userService.findUserByUsername("buyerUser")).thenReturn(Optional.of(user));
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
         mockMvc.perform(post(buyEndpoint)

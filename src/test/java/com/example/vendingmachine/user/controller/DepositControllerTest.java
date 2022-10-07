@@ -54,7 +54,7 @@ class DepositControllerTest {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    @WithMockUser(value = "buyerUser")
+    @WithMockUser(username = "buyer")
     @DisplayName("User should deposit coins successfully")
     public void shouldDepositSuccessfully() throws Exception {
         DepositDTO depositDTO = new DepositDTO(100.00);
@@ -74,12 +74,12 @@ class DepositControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    @WithMockUser(value = "buyer")
+    @WithMockUser(username = "buyer")
     @DisplayName("Should return NOT FOUND when user does not exist on deposit endpoint")
     public void shouldReturnNotFoundWhenUserDoesNotExistOnDepositEndpoint() throws Exception {
         DepositDTO depositDTO = new DepositDTO(100.00);
@@ -96,7 +96,7 @@ class DepositControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyer")
+    @WithMockUser(username = "buyer")
     @DisplayName("Should return BAD REQUEST when deposit is bigger than allowed value")
     public void shouldReturnBadRequestWhenDepositIsBiggerThanAllowedValue() throws Exception {
         DepositDTO depositDTO = new DepositDTO(110.00);
@@ -113,7 +113,7 @@ class DepositControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyer")
+    @WithMockUser(username = "buyer")
     @DisplayName("Should return BAD REQUEST when deposit is a disallowed value")
     public void shouldReturnBadRequestWhenDepositIsADisallowedValue() throws Exception {
         DepositDTO depositDTO = new DepositDTO(13.00);
@@ -130,7 +130,7 @@ class DepositControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyer")
+    @WithMockUser(username = "buyer")
     @DisplayName("Should return BAD REQUEST when deposit is bigger than allowed value")
     public void asd() throws Exception {
         DepositDTO depositDTO = new DepositDTO(100.00);
@@ -155,7 +155,7 @@ class DepositControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "buyer")
+    @WithMockUser(username = "buyer")
     @DisplayName("Should return NOT FOUND when user does not exist on reset endpoint")
     public void shouldReturnNotFoundWhenUserDoesNotExistOnResetEndpoint() throws Exception {
         DepositDTO depositDTO = new DepositDTO(100.00);
