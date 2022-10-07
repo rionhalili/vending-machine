@@ -1,8 +1,11 @@
 # Vending Machine API
+
 This project contains the REST API for a Vending Machine
 
 # Prerequisites
+
 Tool used for this project:
+
 * Java 11
 * Spring Boot
 * PostgreSQL
@@ -11,7 +14,9 @@ Tool used for this project:
 * Gradle
 
 # How to run the project?
+
 After cloning the project, open it in IntelliJ and open the project
+
 * File > Open > vending-machine (folder)
 * Open databases and configure PostgreSQL
 
@@ -32,13 +37,6 @@ After a successful connection to database, you can run the project through Intel
 The project structure is formed by Users, Products, Roles which are considered as domains of the
 application.
 
-# Regarding testing
-I have used MockMVC to test the endpoints. Tests are provided for
-* Buy endpoint
-* Deposit endpoint
-* User CRUD
-
-
 ![](img/Project_Structure.png)
 
 # Database structure Design
@@ -49,6 +47,14 @@ Below you find the database relationship between entities: Users, Products, Role
 * `Users 1:1 Roles`
 
 ![](img/Database_Relationships.png)
+
+# Regarding testing
+
+I have used MockMVC to test the endpoints. Tests are provided for
+
+* Buy endpoint
+* Deposit endpoint
+* User CRUD
 
 # How to test the endpoints?
 
@@ -74,4 +80,5 @@ API could be tested with Postman as well.
 7. Buy product
 
 # Final notes
+
 The CRUD for Roles is not implemented
