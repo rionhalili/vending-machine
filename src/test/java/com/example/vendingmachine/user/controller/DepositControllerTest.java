@@ -109,7 +109,24 @@ class DepositControllerTest {
                         .with(csrf())
                         .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("{\"message\":[\"Maximum coin value exceeded.\"]}"));
+                .andExpect(content().string("{\"message\":[\"Disallowed coin inserted. Coins allowed are: 100.00, 50.00, 20.00, 10.00, 5.00\",\"Maximum coin value exceeded.\"]}"));
+    }
+
+    @Test
+    @WithMockUser(value = "buyer")
+    @DisplayName("Should return BAD REQUEST when deposit is a disallowed value")
+    public void shouldReturnBadRequestWhenDepositIsADisallowedValue() throws Exception {
+        DepositDTO depositDTO = new DepositDTO(13.00);
+
+        String depositEndpoint = "/api/users/deposit";
+        mockMvc.perform(put(depositEndpoint)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(depositDTO))
+                        .with(csrf())
+                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("{\"message\":[\"Disallowed coin inserted. Coins allowed are: 100.00, 50.00, 20.00, 10.00, 5.00\"]}"));
     }
 
     @Test
