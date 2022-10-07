@@ -42,7 +42,7 @@ public class BuyController {
         String currentUser = userDetailsService.getCurrentUser();
         Optional<User> user = userService.findUserByUsername(currentUser);
         if (user.isEmpty()) {
-            return new ResponseEntity<>(Map.of("message", "Product not owned by user"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "User not found"), HttpStatus.NOT_FOUND);
         }
         Optional<Product> product = productService.getProduct(id);
         if (product.isEmpty()) {

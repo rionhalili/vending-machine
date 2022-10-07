@@ -59,7 +59,7 @@ public class ProductController {
         String currentUser = userDetailsService.getCurrentUser();
         Optional<User> user = userService.findUserByUsername(currentUser);
         if (user.isEmpty()) {
-            return new ResponseEntity<>(Map.of("message", "Product not owned by user"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "User not found"), HttpStatus.NOT_FOUND);
         }
         Product product = new Product(
                 productRequest.getName(),
@@ -81,7 +81,7 @@ public class ProductController {
 
         Optional<User> user = userService.findUserByUsername(currentUser);
         if (user.isEmpty()) {
-            return new ResponseEntity<>(Map.of("message", "Product not owned by user"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "User not found"), HttpStatus.NOT_FOUND);
         }
         Optional<Product> product = productService.findById(id);
         if (product.isEmpty()) {
