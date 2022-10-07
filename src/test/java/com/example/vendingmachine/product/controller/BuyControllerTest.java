@@ -29,6 +29,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -85,7 +86,7 @@ class BuyControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("{\"message\":\"Not enough money in deposit\"}"));
     }
@@ -116,7 +117,7 @@ class BuyControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isOk());
     }
 
@@ -145,7 +146,7 @@ class BuyControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("{\"message\":[\"Amount requested not allowed\"]}"));
     }
@@ -172,7 +173,7 @@ class BuyControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"message\":\"Product not found\"}"));
     }

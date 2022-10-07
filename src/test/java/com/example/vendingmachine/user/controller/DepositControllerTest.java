@@ -25,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -73,7 +74,7 @@ class DepositControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
+                        .with(user("buyer")))
                 .andExpect(status().isCreated());
     }
 
@@ -88,7 +89,7 @@ class DepositControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
+                        .with(user("buyer")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"message\":\"User not found\"}"));
     }
@@ -104,7 +105,7 @@ class DepositControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
+                        .with(user("buyer")))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("{\"message\":[\"Disallowed coin inserted. Coins allowed are: 100.00, 50.00, 20.00, 10.00, 5.00\",\"Maximum coin value exceeded.\"]}"));
     }
@@ -120,7 +121,7 @@ class DepositControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
+                        .with(user("buyer")))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("{\"message\":[\"Disallowed coin inserted. Coins allowed are: 100.00, 50.00, 20.00, 10.00, 5.00\"]}"));
     }
@@ -145,7 +146,7 @@ class DepositControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
+                        .with(user("buyer")))
                 .andExpect(status().isOk());
     }
 
@@ -160,7 +161,7 @@ class DepositControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyer")))
+                        .with(user("buyer")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"message\":\"User not found\"}"));
     }

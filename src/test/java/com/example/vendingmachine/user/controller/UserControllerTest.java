@@ -25,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -71,7 +72,7 @@ class UserControllerTest {
         mockMvc.perform(get(getEndpoint)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isOk());
     }
 
@@ -90,7 +91,7 @@ class UserControllerTest {
         mockMvc.perform(get(getEndpoint)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"message\":\"User not found\"}"));
     }
@@ -114,7 +115,7 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequest))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isCreated());
     }
 
@@ -135,7 +136,7 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequest))
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"message\":\"User not found\"}"));
     }
@@ -157,7 +158,7 @@ class UserControllerTest {
         mockMvc.perform(delete(deleteEndpoint)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isOk())
                 .andExpect(content().string("{\"message\":\"User deleted successfully\"}"));
     }
@@ -177,7 +178,7 @@ class UserControllerTest {
         mockMvc.perform(delete(deleteEndpoint)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
-                        .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
+                        .with(user("buyerUser")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"message\":\"User not found\"}"));
     }
