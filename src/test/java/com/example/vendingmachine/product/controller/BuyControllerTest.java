@@ -81,7 +81,6 @@ class BuyControllerTest {
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
         mockMvc.perform(post(buyEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))
@@ -113,7 +112,6 @@ class BuyControllerTest {
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
         mockMvc.perform(post(buyEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))
@@ -143,7 +141,6 @@ class BuyControllerTest {
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
         mockMvc.perform(post(buyEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))
@@ -171,7 +168,6 @@ class BuyControllerTest {
 
         String buyEndpoint = "/api/products/725cc71e-a39e-4005-85cb-6dfb45b77646/buy";
         mockMvc.perform(post(buyEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .param("id", "725cc71e-a39e-4005-85cb-6dfb45b77646")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(buyRequest))

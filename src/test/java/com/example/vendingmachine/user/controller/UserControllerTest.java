@@ -69,7 +69,6 @@ class UserControllerTest {
         when(userService.getUser(user.getId())).thenReturn(Optional.of(user));
 
         mockMvc.perform(get(getEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
                         .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
@@ -89,7 +88,6 @@ class UserControllerTest {
         String getEndpoint = "/api/users/" + user.getId();
 
         mockMvc.perform(get(getEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
                         .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
@@ -113,7 +111,6 @@ class UserControllerTest {
         when(userService.getUser(user.getId())).thenReturn(Optional.of(user));
 
         mockMvc.perform(put(updateEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequest))
                         .with(csrf())
@@ -135,7 +132,6 @@ class UserControllerTest {
         String updateEndpoint = "/api/users/" + user.getId();
 
         mockMvc.perform(put(updateEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequest))
                         .with(csrf())
@@ -159,7 +155,6 @@ class UserControllerTest {
         when(userService.getUser(user.getId())).thenReturn(Optional.of(user));
 
         mockMvc.perform(delete(deleteEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
                         .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))
@@ -180,7 +175,6 @@ class UserControllerTest {
         String deleteEndpoint = "/api/users/" + user.getId();
 
         mockMvc.perform(delete(deleteEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
                         .with(SecurityMockMvcRequestPostProcessors.user("buyerUser")))

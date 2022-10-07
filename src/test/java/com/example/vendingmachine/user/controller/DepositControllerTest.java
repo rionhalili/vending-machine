@@ -70,7 +70,6 @@ class DepositControllerTest {
 
         String depositEndpoint = "/api/users/deposit";
         mockMvc.perform(put(depositEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
@@ -86,7 +85,6 @@ class DepositControllerTest {
 
         String depositEndpoint = "/api/users/deposit";
         mockMvc.perform(put(depositEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
@@ -103,7 +101,6 @@ class DepositControllerTest {
 
         String depositEndpoint = "/api/users/deposit";
         mockMvc.perform(put(depositEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
@@ -120,7 +117,6 @@ class DepositControllerTest {
 
         String depositEndpoint = "/api/users/deposit";
         mockMvc.perform(put(depositEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
@@ -146,7 +142,6 @@ class DepositControllerTest {
 
         String resetEndpoint = "/api/users/reset";
         mockMvc.perform(put(resetEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
@@ -162,7 +157,6 @@ class DepositControllerTest {
 
         String resetEndpoint = "/api/users/reset";
         mockMvc.perform(put(resetEndpoint)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositDTO))
                         .with(csrf())
